@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/c/Program Files/MySQL/MySQL Workbench 8.0 CE/mysql.exe\" -u root --protocol=TCP -e \"USE fixit_db; SELECT idUsuario, nombre, apellido, email FROM usuario WHERE LOWER\\(nombre\\) LIKE '%juan%';\")"
+    ]
+  }
+}
