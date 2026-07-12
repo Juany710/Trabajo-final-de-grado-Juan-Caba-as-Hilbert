@@ -1286,7 +1286,6 @@ body {
   background: #e0e0e0; color: #555; font-size: 15px; font-weight: 700;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; overflow: hidden; border: 2px solid #e8e8e8;
 }
-#screen-perfil { height: 100vh; }
 .cuenta-scroll { padding: 16px 16px 120px; }
 .cuenta-user-card {
   background: #fff; border: 1px solid #ececec; border-radius: 18px;
