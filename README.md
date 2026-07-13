@@ -2,9 +2,11 @@
 
 Plataforma web tipo *marketplace* que conecta clientes con técnicos para solicitar y ofrecer servicios de reparación (electrónica, electrodomésticos, vehículos) en tiempo real, con geolocalización, sistema de ofertas, chat y calificaciones.
 
-- **Autor:** Juany Hilbert (juanyhilbert710@gmail.com)
+- **Autor:** Juan Ignacio Cabañas Hilbert (juanyhilbert710@gmail.com)
 - **Trabajo Final de Grado**
-- **Año:** 2025
+- **Año:** 2026
+
+🎥 **[Video demostrativo](https://youtu.be/RHn3iq7rjCI)** — muestra el funcionamiento de la aplicación de cliente y de técnico, cómo interactúan entre sí, y el principal valor agregado de FIXIT: el cliente elige entre múltiples ofertas recibidas en lugar de quedarse con la primera que encuentra.
 
 ## Índice
 
@@ -169,7 +171,7 @@ O, desde IntelliJ IDEA / VS Code: abrir el proyecto como Maven project y ejecuta
 
 Cuando el arranque termina correctamente, en la consola debería verse:
 
-```
+```text
 FIXIT — Datos de demo cargados correctamente.
    Cliente:  juan@fixit.com   / 123456
    Técnico:  olivia@fixit.com / 123456
@@ -247,7 +249,7 @@ Esto permite evaluar todo el flujo de la aplicación sin tener que cargar datos 
 
 ## 12. Estructura del proyecto
 
-```
+```text
 Trabajo-final-de-grado/
 ├── pom.xml                              # Configuración Maven (Spring Boot 3.5.15, Java 17)
 ├── src/main/java/com/fixit/
@@ -272,7 +274,7 @@ Trabajo-final-de-grado/
 
 Aplicación monolítica: el frontend se sirve desde el mismo proceso Spring Boot que expone la API.
 
-```
+```text
 Navegador (Cliente / Técnico)
         ↓
 Frontend estático (HTML/CSS/JS + Leaflet)
@@ -344,24 +346,25 @@ mvn test
 
 ## 19. Posibles problemas y soluciones
 
-**Error de conexión a MySQL al arrancar**
+### Error de conexión a MySQL al arrancar
 
 Verificar que:
+
 - El servicio de MySQL esté iniciado.
 - MySQL esté escuchando en el puerto `3306`.
 - El usuario y contraseña configurados en `application.properties` coincidan con los de tu instalación de MySQL (por defecto: `root` sin contraseña).
 
 No hace falta crear la base `fixit_db` a mano: se crea sola gracias a `createDatabaseIfNotExist=true`.
 
-**Puerto 8080 ocupado**
+### Puerto 8080 ocupado
 
 Cambiar `server.port` en `application.properties` por otro puerto libre (por ejemplo `8081`).
 
-**El mapa no carga o la geocodificación falla**
+### El mapa no carga o la geocodificación falla
 
 Verificar la conexión a internet: tanto Leaflet (CDN) como la geocodificación (Nominatim) requieren acceso externo.
 
-**`mvnw.cmd` no reconocido / da error**
+### `mvnw.cmd` no reconocido / da error
 
 Asegurarse de ejecutarlo desde la raíz del proyecto en una terminal Windows (`cmd` o PowerShell). En Linux/Mac, usar `mvn spring-boot:run` con Maven instalado globalmente (no se incluye wrapper Unix en este repo).
 
