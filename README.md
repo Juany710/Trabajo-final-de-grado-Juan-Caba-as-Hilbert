@@ -114,7 +114,7 @@ Solo hace falta que **MySQL esté instalado y corriendo** en `localhost:3306`, c
 - Usuario: `root`
 - Contraseña: *(vacía)*
 
-Si tu instalación de MySQL usa una contraseña para `root` (lo habitual), ver la sección 6 para ajustarla.
+Si tu instalación de MySQL usa una contraseña para `root` (lo habitual), definila en la variable de entorno `DB_PASSWORD` (ver sección 6).
 
 Al arrancar por primera vez, la aplicación también **carga datos de demo automáticamente** (usuarios, categorías, solicitudes, ofertas, etc. — ver secciones 8 y 9), así que no hace falta cargar nada a mano.
 
@@ -124,25 +124,38 @@ El archivo de configuración es [src/main/resources/application.properties](src/
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/fixit_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Argentina/Cordoba&allowPublicKeyRetrieval=true
-spring.datasource.username=root
-spring.datasource.password=
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD:}
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 spring.jpa.hibernate.ddl-auto=update
 server.port=8080
 server.address=0.0.0.0
 
-fixit.jwt.secret=fixit-secret-key-256bits-para-hs256-tesis-2025-seguro
+fixit.jwt.secret=${JWT_SECRET}
 ```
 
-Si tu MySQL local tiene otro usuario o contraseña, **editá solamente estas dos líneas** antes de ejecutar el proyecto:
+Los valores sensibles **no están en el repositorio**: se leen de variables de entorno. Hay un archivo de referencia con valores ficticios en [src/main/resources/application-example.properties](src/main/resources/application-example.properties).
 
-```properties
-spring.datasource.username=TU_USUARIO
-spring.datasource.password=TU_CONTRASEÑA
+| Variable | Obligatoria | Valor por defecto | Descripción |
+|---|---|---|---|
+| `JWT_SECRET` | Sí | — | Clave para firmar los tokens JWT (HS256). Mínimo 32 caracteres. |
+| `DB_USERNAME` | No | `root` | Usuario de MySQL |
+| `DB_PASSWORD` | No | *(vacía)* | Contraseña de MySQL |
+
+Ejemplo en PowerShell (Windows), antes de ejecutar el proyecto en la misma terminal:
+
+```powershell
+$env:JWT_SECRET = "una-clave-aleatoria-de-al-menos-32-caracteres"
+$env:DB_PASSWORD = "tu_contraseña"
 ```
 
-No es necesario tocar nada más para correr la demo localmente.
+En Linux/Mac:
+
+```bash
+export JWT_SECRET="una-clave-aleatoria-de-al-menos-32-caracteres"
+export DB_PASSWORD="tu_contraseña"
+```
 
 ## 7. Ejecutar el backend y el frontend
 
@@ -329,7 +342,7 @@ El sistema no tiene un campo "rol" explícito: el tipo de usuario se determina p
 | Swagger UI                | http://localhost:8080/swagger-ui.html |
 | WebSocket (chat)          | `ws://localhost:8080/ws` |
 | Base de datos             | MySQL, `fixit_db` en `localhost:3306` |
-| Usuario MySQL por defecto | `root` (sin contraseña) |
+| Usuario MySQL por defecto | `root` (configurable con `DB_USERNAME` / `DB_PASSWORD`) |
 
 ## 17. Ejecutar los tests
 
@@ -352,7 +365,7 @@ Verificar que:
 
 - El servicio de MySQL esté iniciado.
 - MySQL esté escuchando en el puerto `3306`.
-- El usuario y contraseña configurados en `application.properties` coincidan con los de tu instalación de MySQL (por defecto: `root` sin contraseña).
+- Las variables de entorno `DB_USERNAME` y `DB_PASSWORD` coincidan con el usuario y la contraseña de tu instalación de MySQL.
 
 No hace falta crear la base `fixit_db` a mano: se crea sola gracias a `createDatabaseIfNotExist=true`.
 

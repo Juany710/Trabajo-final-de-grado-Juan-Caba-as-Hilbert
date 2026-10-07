@@ -1,9 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "fixit.jwt.secret",
-      "type": "java.lang.String",
-      "description": "Clave secreta HS256 usada para firmar y verificar los tokens JWT de la aplicación."
-    }
-  ]
-}
