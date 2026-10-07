@@ -23,7 +23,7 @@ public class SolicitudController {
 
     @PostMapping
     public ResponseEntity<?> crear(
-            @RequestHeader("Authorization") String token,
+            @RequestHeader(value = "Authorization", required = false) String token,
             @RequestBody Map<String, Object> body) {
 
         Optional<Integer> uid = AuthController.getUserIdFromToken(token);
@@ -129,7 +129,7 @@ public class SolicitudController {
         if (tec.isEmpty()) return ResponseEntity.ok(List.of());
         return ResponseEntity.ok(
             ofertaRepo.findAceptadasByTecnico(tec.get().getIdtecnico()).stream()
-                .filter(o -> List.of("En proceso", "PendienteConfirmacion", "Finalizado").contains(o.getSolicitud().getEstado()))
+                .filter(o -> List.of("En proceso", "PendienteConfirmacion", "Finalizada").contains(o.getSolicitud().getEstado()))
                 .map(o -> toMap(o.getSolicitud()))
                 .toList());
     }
@@ -142,7 +142,7 @@ public class SolicitudController {
         if ("tecnico".equals(AuthController.getTipoFromToken(token).orElse(""))) {
             Optional<Tecnico> tec = tecnicoRepo.findByUsuario_IdUsuario(uid.get());
             count = tec.isEmpty() ? 0 : ofertaRepo.findAceptadasByTecnico(tec.get().getIdtecnico())
-                .stream().filter(o -> "Finalizado".equals(o.getSolicitud().getEstado())).count();
+                .stream().filter(o -> "Finalizada".equals(o.getSolicitud().getEstado())).count();
         } else {
             Optional<Cliente> cli = clienteRepo.findByUsuario_IdUsuario(uid.get());
             count = cli.isEmpty() ? 0 : solicitudRepo.findByClienteId(cli.get().getIdcliente())

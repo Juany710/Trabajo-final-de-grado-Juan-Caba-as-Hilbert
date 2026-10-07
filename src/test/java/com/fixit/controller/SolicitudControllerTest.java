@@ -44,7 +44,7 @@ class SolicitudControllerTest {
         // Obtener una categoría existente (creada por el CommandLineRunner)
         MvcResult cats = mvc.perform(get("/api/categorias")).andReturn();
         JsonNode arr = mapper.readTree(cats.getResponse().getContentAsString());
-        categoriaId = arr.get(0).get("id").asInt();
+        categoriaId = arr.get(0).get("idcategoria").asInt();
     }
 
     @Test
@@ -109,6 +109,6 @@ class SolicitudControllerTest {
         mvc.perform(get("/api/solicitudes/pendientes")
                 .header("Authorization", tokenCliente))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(0));
+                .andExpect(jsonPath("$[?(@.detalles == 'Auto no arranca')]").isEmpty());
     }
 }

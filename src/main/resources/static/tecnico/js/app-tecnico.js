@@ -312,7 +312,7 @@ async function _fetchReparaciones(listEl, resumenEl) {
     );
 
     const enProceso   = trabajos.filter(s => ['En proceso', 'PendienteConfirmacion'].includes(s.estado));
-    const finalizadas = trabajos.filter(s => s.estado === 'Finalizado');
+    const finalizadas = trabajos.filter(s => s.estado === 'Finalizada');
     let totalFacturado = 0;
 
     const getPrecio = s => {
@@ -393,7 +393,7 @@ async function cargarNotificaciones() {
     ]);
 
     const aceptadas = ofertas.filter(o => o.estado === 'Aceptada');
-    const finalizados = trabajos.filter(t => t.estado === 'Finalizado');
+    const finalizados = trabajos.filter(t => t.estado === 'Finalizada');
 
     if (aceptadas.length) {
       html += aceptadas.map(o => `
@@ -622,7 +622,7 @@ async function cargarGanancias(periodo) {
       return o ? Number(o.precio) : 0;
     };
 
-    const finalizadas = trabajos.filter(s => s.estado === 'Finalizado');
+    const finalizadas = trabajos.filter(s => s.estado === 'Finalizada');
 
     const hoy = new Date();
     const diasAtras = n => new Date(hoy.getTime() - n * 86400000);

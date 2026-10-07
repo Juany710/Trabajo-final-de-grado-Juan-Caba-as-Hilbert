@@ -26,8 +26,8 @@ public class SolicitudReparacion {
     @Column(nullable = false)
     private LocalDateTime fechaSolicitud = LocalDateTime.now();
 
-    @Column(nullable = false, length = 20)
-    private String estado = "Pendiente"; // Pendiente | En proceso | Finalizada | Cancelada
+    @Column(nullable = false, length = 25)
+    private String estado = "Pendiente"; // Pendiente | En proceso | PendienteConfirmacion | Finalizada | Cancelada
 
     @Column(length = 250)
     private String detalles;

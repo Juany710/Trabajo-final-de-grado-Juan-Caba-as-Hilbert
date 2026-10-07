@@ -54,7 +54,7 @@ class OfertaControllerTest {
 
         // Obtener categoría
         MvcResult cats = mvc.perform(get("/api/categorias")).andReturn();
-        categoriaId = mapper.readTree(cats.getResponse().getContentAsString()).get(0).get("id").asInt();
+        categoriaId = mapper.readTree(cats.getResponse().getContentAsString()).get(0).get("idcategoria").asInt();
 
         // Crear solicitud como cliente
         MvcResult resSol = mvc.perform(post("/api/solicitudes")
